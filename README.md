@@ -1,0 +1,2 @@
+# BAM-PROJEKT
+Mosiolek-Sadza-BAM2023
