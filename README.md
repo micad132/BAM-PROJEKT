@@ -1,2 +1,2 @@
 # BAM-PROJEKT
-Mosiolek-Sadza-BAM2023
+Mosiolek-Rzepka-Tokar-BAM2023
