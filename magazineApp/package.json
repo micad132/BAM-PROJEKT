@@ -9,10 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@tamagui/config": "^1.74.19",
+    "@tamagui/core": "^1.74.19",
     "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
-    "react-native": "0.72.5"
+    "react-native": "0.72.5",
+    "tamagui": "^1.74.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
