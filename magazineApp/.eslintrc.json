@@ -4,6 +4,13 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["off"],
-    "global-require": ["off"]
+    "global-require": ["off"],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ]
   }
 }
