@@ -3,19 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TamaguiProvider, Button } from 'tamagui';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
 import config from './tamagui.config';
 import LoginScreen from './pages/AuthScreen/LoginScreen.container';
+import RegisterScreen from './pages/AuthScreen/RegisterScreen.container';
+import { store, useAppDispatch, useAppSelector } from './store';
+import { fetchingTestThunk, getIsLoaded, getTestData } from './store/reducers/testReducer';
+import SpinnerComponent from './components/spinner.component';
+import LayoutContainer from './layout/Layout.container';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#111',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-  },
-});
-
+// eslint-disable-next-line react/function-component-definition
 export default function App() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
@@ -32,14 +29,13 @@ export default function App() {
     return null;
   }
   return (
-    <NavigationContainer>
-      <TamaguiProvider config={config}>
-        <View style={styles.container}>
-          <Button onLongPress={() => console.log('SIEMA')}>Hello world</Button>
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <LoginScreen />
-        </View>
-      </TamaguiProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <TamaguiProvider config={config}>
+          <LayoutContainer />
+        </TamaguiProvider>
+      </NavigationContainer>
+    </Provider>
+
   );
 }

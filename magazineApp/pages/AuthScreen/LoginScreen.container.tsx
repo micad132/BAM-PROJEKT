@@ -1,27 +1,45 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
 import {
-  Button, Form, Input, styled,
+  NativeSyntheticEvent, Text, TextInputChangeEventData, View,
+} from 'react-native';
+import {
+  Button, Form, styled, Label,
 } from 'tamagui';
+import InputComponent from '../../components/input.component';
+import { INITIAL_LOGIN_DATA, LoginData } from '../../models/AuthModels';
 
-const InputText = styled(Input, {
-  name: 'InputText',
-  width: 300,
-  borderColor: '#000',
+const SubmitButton = styled(Button, {
+  name: 'SubmitButton',
+  marginTop: 10,
 });
 
-const LoginScreen = () => (
-  <View>
-    <Text>LoginScreen</Text>
-    <Form onSubmit={() => {}}>
-      <InputText size="$4" borderWidth={1} placeholder="Type your e-mail here..." />
-      <InputText size="$4" borderWidth={1} placeholder="Type your password here..." />
-      <InputText size="$4" borderWidth={1} placeholder="Confirm your password" />
-      <Form.Trigger asChild>
-        <Button>Login</Button>
-      </Form.Trigger>
-    </Form>
-  </View>
-);
+const LoginScreen = () => {
+  const [loginData, setLoginData] = useState<LoginData>(INITIAL_LOGIN_DATA);
+
+  const handleOnChange = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    setLoginData((prevState) => ({
+      ...prevState,
+      [type]: e.nativeEvent.text,
+    }));
+  };
+
+  const onSubmitHandle = () => {
+    console.log(loginData);
+  };
+
+  return (
+    <View>
+      <Text>LoginScreen</Text>
+      <Form onSubmit={onSubmitHandle}>
+        <InputComponent placeholder="Type your e-mail here..." onChange={handleOnChange('email')} value={loginData.email} isPassword={false} inputId="Email" />
+        <InputComponent placeholder="Type your password here..." onChange={handleOnChange('password')} value={loginData.password} isPassword inputId="Password" />
+        <InputComponent placeholder="Confirm your password" onChange={handleOnChange('confirmPassword')} value={loginData.confirmPassword} isPassword inputId="Confirm Password" />
+        <Form.Trigger asChild>
+          <SubmitButton>Login</SubmitButton>
+        </Form.Trigger>
+      </Form>
+    </View>
+  );
+};
 
 export default LoginScreen;
