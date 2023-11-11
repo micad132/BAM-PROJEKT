@@ -10,6 +10,7 @@
     "global-require": ["off"],
     "import/extensions": ["off"],
     "no-param-reassign": ["off"],
+    "import/prefer-default-export": ["off"],
     "react/function-component-definition": [
       2,
       {

@@ -30,11 +30,11 @@ const RegisterScreen = () => {
     <View>
       <Text>LoginScreen</Text>
       <Form onSubmit={onSubmitHandle}>
-        <InputComponent placeholder="Type your e-mail here..." onChange={handleOnChange('email')} value={registerData.email} isPassword={false} inputId="Email" />
-        <InputComponent placeholder="Type your password here..." onChange={handleOnChange('password')} value={registerData.password} isPassword inputId="Password" />
-        <InputComponent placeholder="Confirm your password" onChange={handleOnChange('confirmPassword')} value={registerData.confirmPassword} isPassword inputId="Confirm Password" />
-        <InputComponent placeholder="Type your city here..." onChange={handleOnChange('city')} value={registerData.city} isPassword inputId="City" />
-        <InputComponent placeholder="Type your postalcode here" onChange={handleOnChange('postalCode')} value={registerData.postalCode} isPassword inputId="Postal code" />
+        <InputComponent placeholder="Type your e-mail here..." onChange={handleOnChange('email')} value={registerData.email} isPassword={false} inputId="RegisterEmail" />
+        <InputComponent placeholder="Type your password here..." onChange={handleOnChange('password')} value={registerData.password} isPassword inputId="RegisterPassword" />
+        <InputComponent placeholder="Confirm your password" onChange={handleOnChange('confirmPassword')} value={registerData.confirmPassword} isPassword inputId="RegisterConfirmPassword" />
+        <InputComponent placeholder="Type your city here..." onChange={handleOnChange('city')} value={registerData.city} isPassword inputId="RegisterCity" />
+        <InputComponent placeholder="Type your postalcode here" onChange={handleOnChange('postalCode')} value={registerData.postalCode} isPassword inputId="RegisterPostalCode" />
         <Form.Trigger asChild>
           <SubmitButton>Register</SubmitButton>
         </Form.Trigger>
