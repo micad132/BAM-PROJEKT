@@ -21,12 +21,13 @@ type Props = {
     onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void,
     isPassword: boolean,
     inputId: string,
+    label: string,
 }
 const InputComponent = ({
-  placeholder, value, onChange, isPassword, inputId,
+  placeholder, value, onChange, isPassword, inputId, label,
 }: Props) => (
   <>
-    <LabelText htmlFor={inputId}>{inputId}</LabelText>
+    <LabelText htmlFor={inputId}>{label}</LabelText>
     <InputText size="$4" borderWidth={1} placeholder={placeholder} value={value} onChange={onChange} secureTextEntry={isPassword} id={inputId} />
   </>
 );

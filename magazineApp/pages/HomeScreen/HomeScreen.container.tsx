@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { ScrollView } from 'tamagui';
+import { Text, View } from 'react-native';
+import { Button } from 'tamagui';
+import { StackActions } from '@react-navigation/native';
 
-const HomeScreen = () => (
-  <ScrollView>
-    <Text>HOMESCREEN</Text>
-  </ScrollView>
+const HomePage = ({ navigation }: any) => (
+  <View>
+    <Text>HOME</Text>
+    <Button onPress={() => navigation.dispatch(StackActions.replace('Login'))}>Wyloguj się</Button>
+  </View>
 );
 
-export default HomeScreen;
+export default HomePage;

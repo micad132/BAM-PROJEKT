@@ -4,7 +4,7 @@ import { ScrollView } from 'tamagui';
 
 const StorageScreen = () => (
   <ScrollView>
-    <Text>HOMESCREEN</Text>
+    <Text>Storage</Text>
   </ScrollView>
 );
 
