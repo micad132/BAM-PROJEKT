@@ -4,7 +4,7 @@ import { ScrollView } from 'tamagui';
 
 const ProductScreen = () => (
   <ScrollView>
-    <Text>HOMESCREEN</Text>
+    <Text>Product</Text>
   </ScrollView>
 );
 

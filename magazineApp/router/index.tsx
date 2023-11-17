@@ -6,6 +6,7 @@ import LoginScreen from '../pages/AuthScreen/LoginScreen.container';
 import RegisterScreen from '../pages/AuthScreen/RegisterScreen.container';
 import { Icons } from '../utils/icons';
 import HomePage from '../pages/HomeScreen/HomeScreen.container';
+import StorageScreen from '../pages/StorageScreen/StorageScreen.container';
 
 // Tworzenie Bottom Tab Navigatora
 const Tab = createBottomTabNavigator();
@@ -23,6 +24,13 @@ export const TabNavigatorComponent = () => (
       component={ProductScreen}
       options={{
         tabBarIcon: Icons.tabBarIconProduct,
+      }}
+    />
+    <Tab.Screen
+      name="Warehouse"
+      component={StorageScreen}
+      options={{
+        tabBarIcon: Icons.tabBarIconWarehouse,
       }}
     />
   </Tab.Navigator>

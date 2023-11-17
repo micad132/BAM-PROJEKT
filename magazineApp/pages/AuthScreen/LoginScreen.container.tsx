@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, Text, TextInputChangeEventData, View,
+  NativeSyntheticEvent, TextInputChangeEventData,
 } from 'react-native';
 import {
-  Button, Form, styled, Label,
+  Button, Form, styled,
+  H3, H6,
 } from 'tamagui';
-import { StackActions, CommonActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 import InputComponent from '../../components/input.component';
 import { INITIAL_LOGIN_DATA, LoginData } from '../../models/AuthModels';
-
-const LoginWrapper = styled(View, {
-  flex: 1,
-  backgroundColor: '#111',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 10,
-});
+import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
   marginTop: 10,
+});
+
+const LoginHeading = styled(H3, {
+  color: '#fff',
+});
+
+const RegisterText = styled(H6, {
+  marginTop: 10,
+  color: '#fff',
 });
 
 const LoginScreen = ({ navigation }: any) => {
@@ -38,18 +41,39 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <LoginWrapper>
-      <Text>LoginScreen</Text>
+    <AuthFormWrapperComponent>
+      <LoginHeading>Login</LoginHeading>
       <Form onSubmit={onSubmitHandle}>
-        <InputComponent placeholder="Type your e-mail here..." onChange={handleOnChange('email')} value={loginData.email} isPassword={false} inputId="LoginEmail" />
-        <InputComponent placeholder="Type your password here..." onChange={handleOnChange('password')} value={loginData.password} isPassword inputId="LoginPassword" />
-        <InputComponent placeholder="Confirm your password" onChange={handleOnChange('confirmPassword')} value={loginData.confirmPassword} isPassword inputId="LoginConfirmPassword" />
+        <InputComponent
+          placeholder="Type your e-mail here..."
+          onChange={handleOnChange('email')}
+          value={loginData.email}
+          isPassword={false}
+          inputId="LoginEmail"
+          label="Email"
+        />
+        <InputComponent
+          placeholder="Type your password here..."
+          onChange={handleOnChange('password')}
+          value={loginData.password}
+          isPassword
+          inputId="LoginPassword"
+          label="Password"
+        />
+        <InputComponent
+          placeholder="Confirm your password"
+          onChange={handleOnChange('confirmPassword')}
+          value={loginData.confirmPassword}
+          isPassword
+          inputId="LoginConfirmPassword"
+          label="Confirm Password"
+        />
         <Form.Trigger asChild>
-          <SubmitButton>Login</SubmitButton>
+          <SubmitButton>LOGIN</SubmitButton>
         </Form.Trigger>
       </Form>
-      <Button onPress={() => navigation.navigate('Register')}>Register</Button>
-    </LoginWrapper>
+      <RegisterText onPress={() => navigation.navigate('Register')}>Don't have an account?</RegisterText>
+    </AuthFormWrapperComponent>
   );
 };
 
