@@ -1,5 +1,5 @@
 package BAMProject.magazineApp.service;
-import BAMProject.magazineApp.model.ProductModel;
+import BAMProject.magazineApp.model.Product;
 import BAMProject.magazineApp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductModel> getAllProducts() {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public ProductModel createProduct(ProductModel product) {
+    public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 }

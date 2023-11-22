@@ -1,5 +1,5 @@
 package BAMProject.magazineApp.controller;
-import BAMProject.magazineApp.model.UserModel;
+import BAMProject.magazineApp.model.User;
 import BAMProject.magazineApp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,18 +8,18 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/v1/user")
 public class UserController {
     private final UserService userService;
 
 
     @GetMapping
-    public List<UserModel> getAllUsers() {
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping
-    public UserModel createUser(@RequestBody UserModel user) {
+    public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 }

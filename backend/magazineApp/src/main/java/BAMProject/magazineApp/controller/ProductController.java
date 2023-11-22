@@ -1,5 +1,5 @@
 package BAMProject.magazineApp.controller;
-import BAMProject.magazineApp.model.ProductModel;
+import BAMProject.magazineApp.model.Product;
 import BAMProject.magazineApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("api/v1/product")
 public class ProductController {
     private final ProductService productService;
     @Autowired
@@ -18,11 +18,11 @@ public class ProductController {
 
 
     @GetMapping
-    public List<ProductModel> getAllProducts() {
+    public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
     @PostMapping
-    public ProductModel createProduct(@RequestBody ProductModel product) {
+    public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
 }

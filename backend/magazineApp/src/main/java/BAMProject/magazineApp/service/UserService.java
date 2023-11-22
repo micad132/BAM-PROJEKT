@@ -1,5 +1,5 @@
 package BAMProject.magazineApp.service;
-import BAMProject.magazineApp.model.UserModel;
+import BAMProject.magazineApp.model.User;
 import BAMProject.magazineApp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public List<UserModel> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public UserModel createUser(UserModel user) {
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
