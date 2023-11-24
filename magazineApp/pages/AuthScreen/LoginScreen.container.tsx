@@ -51,6 +51,7 @@ const LoginScreen = ({ navigation }: any) => {
           isPassword={false}
           inputId="LoginEmail"
           label="Email"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Type your password here..."
@@ -59,6 +60,7 @@ const LoginScreen = ({ navigation }: any) => {
           isPassword
           inputId="LoginPassword"
           label="Password"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Confirm your password"
@@ -67,6 +69,7 @@ const LoginScreen = ({ navigation }: any) => {
           isPassword
           inputId="LoginConfirmPassword"
           label="Confirm Password"
+          isBlackText={false}
         />
         <Form.Trigger asChild>
           <SubmitButton>LOGIN</SubmitButton>

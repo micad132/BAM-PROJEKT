@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, Text, TextInputChangeEventData, View,
+  NativeSyntheticEvent, Text, TextInputChangeEventData, View, ToastAndroid,
 } from 'react-native';
 import {
   Button, Form, H3, styled,
@@ -32,6 +32,7 @@ const RegisterScreen = () => {
 
   const onSubmitHandle = () => {
     console.log(registerData);
+    ToastAndroid.show('Pomyślnie zarejestrowano użytkownika!', ToastAndroid.SHORT);
   };
   return (
     <AuthFormWrapperComponent>
@@ -44,6 +45,7 @@ const RegisterScreen = () => {
           isPassword={false}
           inputId="RegisterEmail"
           label="Email"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Type your password here..."
@@ -52,6 +54,7 @@ const RegisterScreen = () => {
           isPassword
           inputId="RegisterPassword"
           label="Password"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Confirm your password"
@@ -60,6 +63,7 @@ const RegisterScreen = () => {
           isPassword
           inputId="RegisterConfirmPassword"
           label="Confirm Password"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Type your city here..."
@@ -68,6 +72,7 @@ const RegisterScreen = () => {
           isPassword
           inputId="RegisterCity"
           label="City"
+          isBlackText={false}
         />
         <InputComponent
           placeholder="Type your postalcode here"
@@ -76,6 +81,7 @@ const RegisterScreen = () => {
           isPassword
           inputId="RegisterPostalCode"
           label="Postal Code"
+          isBlackText={false}
         />
         <Form.Trigger asChild>
           <SubmitButton>REGISTER</SubmitButton>
