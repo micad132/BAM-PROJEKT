@@ -1,10 +1,14 @@
 package BAMProject.magazineApp.controller;
+import BAMProject.magazineApp.config.UserWrapper;
 import BAMProject.magazineApp.model.User;
 import BAMProject.magazineApp.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -19,7 +23,19 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        userService.createUser(user);
+        return ResponseEntity.ok("User registered!");
+    }
+
+    @GetMapping("/logged")
+    public ResponseEntity<User> getLoggedUser(Authentication authentication) {
+        User loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUser)
+                .orElse(null);
+        return ResponseEntity.ok(loggedUser);
     }
 }
