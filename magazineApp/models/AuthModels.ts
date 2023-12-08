@@ -1,25 +1,32 @@
 export type LoginData = {
-    email: string,
+    username: string,
     password: string,
     confirmPassword: string,
 }
 
 export type RegisterData = {
-    email: string,
+    username: string,
     password: string,
     confirmPassword: string,
     postalCode: string,
     city: string,
 }
 
+export type RegisterRequestData = {
+    username: string,
+    password: string,
+    postalCode: string,
+    city: string,
+}
+
 export const INITIAL_LOGIN_DATA: LoginData = {
-  email: '',
+  username: '',
   password: '',
   confirmPassword: '',
 };
 
 export const INITIAL_REGISTER_DATA: RegisterData = {
-  email: '',
+  username: '',
   password: '',
   confirmPassword: '',
   city: '',

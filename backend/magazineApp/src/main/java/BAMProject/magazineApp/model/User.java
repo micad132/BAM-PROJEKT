@@ -1,8 +1,8 @@
 package BAMProject.magazineApp.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,15 +11,18 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "user_table")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -34,12 +37,12 @@ public class User {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Storage> storages = new ArrayList<>();
-
-
 
 }

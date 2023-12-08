@@ -7,9 +7,11 @@ import {
   H3, H6,
 } from 'tamagui';
 import { StackActions } from '@react-navigation/native';
+import axios from 'axios';
 import InputComponent from '../../components/input.component';
 import { INITIAL_LOGIN_DATA, LoginData } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
+import { URL_LINK } from '../../utils/utils';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -35,9 +37,20 @@ const LoginScreen = ({ navigation }: any) => {
     }));
   };
 
-  const onSubmitHandle = () => {
+  const onSubmitHandle = async () => {
     console.log(loginData);
-    navigation.dispatch(StackActions.replace('HomeNavigation'));
+    try {
+      const form = new FormData();
+      const { username, password } = loginData;
+      form.append('username', username);
+      form.append('password', password);
+      const response = await axios.post('http://10.0.2.2:8080/login', form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      navigation.dispatch(StackActions.replace('HomeNavigation'));
+    } catch (e) {
+      console.log(JSON.stringify(e));
+    }
   };
 
   return (
@@ -45,12 +58,12 @@ const LoginScreen = ({ navigation }: any) => {
       <LoginHeading>Login</LoginHeading>
       <Form onSubmit={onSubmitHandle}>
         <InputComponent
-          placeholder="Type your e-mail here..."
-          onChange={handleOnChange('email')}
-          value={loginData.email}
+          placeholder="Type your username here..."
+          onChange={handleOnChange('username')}
+          value={loginData.username}
           isPassword={false}
-          inputId="LoginEmail"
-          label="Email"
+          inputId="LoginUsername"
+          label="Username"
           isBlackText={false}
         />
         <InputComponent
@@ -75,7 +88,7 @@ const LoginScreen = ({ navigation }: any) => {
           <SubmitButton>LOGIN</SubmitButton>
         </Form.Trigger>
       </Form>
-      <RegisterText onPress={() => navigation.navigate('Register')}>Don't have an account?</RegisterText>
+      <RegisterText onPress={() => navigation.navigate('Register')}>Dont have an account?</RegisterText>
     </AuthFormWrapperComponent>
   );
 };

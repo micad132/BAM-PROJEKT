@@ -10,6 +10,7 @@ import {
   INITIAL_REGISTER_DATA, RegisterData,
 } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
+import { AuthService } from '../../services/AuthService';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -20,7 +21,7 @@ const RegisterHeading = styled(H3, {
   color: '#fff',
 });
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }: any) => {
   const [registerData, setRegisterData] = useState<RegisterData>(INITIAL_REGISTER_DATA);
 
   const handleOnChange = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -30,21 +31,34 @@ const RegisterScreen = () => {
     }));
   };
 
-  const onSubmitHandle = () => {
+  const onSubmitHandle = async () => {
     console.log(registerData);
-    ToastAndroid.show('Pomyślnie zarejestrowano użytkownika!', ToastAndroid.SHORT);
+    try {
+      const dataToSend = {
+        username: registerData.username,
+        password: registerData.password,
+        city: registerData.city,
+        postalCode: registerData.postalCode,
+      };
+      const data = await AuthService.registerUser(dataToSend);
+      ToastAndroid.show('Pomyślnie zarejestrowano użytkownika!', ToastAndroid.SHORT);
+      setTimeout(() => navigation.navigate('Login'), 2000);
+    } catch (e: any) {
+      console.log(e);
+      ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
+    }
   };
   return (
     <AuthFormWrapperComponent>
       <RegisterHeading>Register</RegisterHeading>
       <Form onSubmit={onSubmitHandle}>
         <InputComponent
-          placeholder="Type your e-mail here..."
-          onChange={handleOnChange('email')}
-          value={registerData.email}
+          placeholder="Type your username here..."
+          onChange={handleOnChange('username')}
+          value={registerData.username}
           isPassword={false}
-          inputId="RegisterEmail"
-          label="Email"
+          inputId="RegisterUsername"
+          label="Username"
           isBlackText={false}
         />
         <InputComponent

@@ -55,9 +55,9 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login")
-                .failureUrl("http://localhost:3000/failed")
-                .defaultSuccessUrl("http://localhost:3000")
-                .loginPage("http://localhost:3000/login")
+                .successHandler((e,d,f) -> {})
+                .failureHandler((a,b,c) -> {})
+                .loginPage("/login")
                 .permitAll();
 
         httpSecurity.logout()

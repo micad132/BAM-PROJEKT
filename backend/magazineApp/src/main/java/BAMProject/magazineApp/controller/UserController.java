@@ -1,5 +1,6 @@
 package BAMProject.magazineApp.controller;
 import BAMProject.magazineApp.config.UserWrapper;
+import BAMProject.magazineApp.model.DTO.UserDTORequest;
 import BAMProject.magazineApp.model.User;
 import BAMProject.magazineApp.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        userService.createUser(user);
+    public ResponseEntity<String> createUser(@RequestBody UserDTORequest userDTORequest) {
+        userService.createUser(userDTORequest);
         return ResponseEntity.ok("User registered!");
     }
 
