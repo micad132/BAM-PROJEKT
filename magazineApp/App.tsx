@@ -4,6 +4,7 @@ import { TamaguiProvider, Button, styled } from 'tamagui';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 import config from './tamagui.config';
 import { store } from './store';
 import StackNavigatorComponent, { TabNavigatorComponent } from './router';
@@ -15,6 +16,8 @@ const styles = StyleSheet.create({
     color: 'red',
   },
 });
+
+axios.defaults.withCredentials = true;
 
 // eslint-disable-next-line react/function-component-definition
 export default function App() {

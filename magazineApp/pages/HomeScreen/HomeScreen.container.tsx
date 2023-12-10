@@ -5,6 +5,9 @@ import { StackActions } from '@react-navigation/native';
 import axios from 'axios';
 import PageWrapperComponent from '../../components/pageWrapper.component';
 import LoggedUserHeaderComponent from './components/loggedUserHeader.component';
+import { useAppDispatch } from '../../store';
+import { fetchingProductsThunk } from '../../store/reducers/productReducer';
+import { ProductService } from '../../services/ProductService';
 
 const LogoutButton = styled(Button, {
   backgroundColor: '#fff',
@@ -16,6 +19,7 @@ const LogoutButton = styled(Button, {
 
 const HomePage = ({ navigation }: any) => {
   const [loggedUser, setLoggedUser] = useState<any>({});
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchLoggedUser = async () => {
@@ -27,6 +31,7 @@ const HomePage = ({ navigation }: any) => {
       }
     };
     fetchLoggedUser();
+    dispatch(fetchingProductsThunk());
   }, []);
 
   const handleLogout = () => navigation.dispatch(StackActions.replace('Login'));

@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: '#fff',
+    paddingTop: 5,
     // Dodaj inne style, jeśli są potrzebne
   },
 
@@ -40,6 +41,10 @@ const styles = StyleSheet.create({
       buttonsDiv: {
         width: '50%',
         display: 'inlineBlock',
+
+        button: {
+          padding: 10,
+        },
       },
 
     },
@@ -60,7 +65,7 @@ const SingleProductComponent = ({
       <View style={styles.wrapper.singleProductWrapper.textDiv}>
         <Text style={styles.text}>
           Nazwa:
-          {product.name}
+          {product.productName}
         </Text>
         <Text style={styles.text}>
           Cena:

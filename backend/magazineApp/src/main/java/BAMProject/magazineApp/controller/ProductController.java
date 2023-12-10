@@ -1,7 +1,10 @@
 package BAMProject.magazineApp.controller;
+import BAMProject.magazineApp.model.DTO.ProductDTORequest;
+import BAMProject.magazineApp.model.DTO.ProductDTOResponse;
 import BAMProject.magazineApp.model.Product;
 import BAMProject.magazineApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +21,13 @@ public class ProductController {
 
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<ProductDTOResponse>> getAllProducts() {
+        List<ProductDTOResponse>  products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public ResponseEntity<String> addProduct(@RequestBody ProductDTORequest productDTORequest) {
+        productService.addProduct(productDTORequest);
+        return ResponseEntity.ok("Dodano produkt!");
     }
 }

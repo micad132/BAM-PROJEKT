@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, TextInputChangeEventData,
+  NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid,
 } from 'react-native';
 import {
   Button, Form, styled,
@@ -38,7 +38,6 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const onSubmitHandle = async () => {
-    console.log(loginData);
     try {
       const form = new FormData();
       const { username, password } = loginData;
@@ -48,8 +47,8 @@ const LoginScreen = ({ navigation }: any) => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       navigation.dispatch(StackActions.replace('HomeNavigation'));
-    } catch (e) {
-      console.log(JSON.stringify(e));
+    } catch (e: any) {
+      ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
   };
 

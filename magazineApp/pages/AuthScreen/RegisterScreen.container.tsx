@@ -32,7 +32,6 @@ const RegisterScreen = ({ navigation }: any) => {
   };
 
   const onSubmitHandle = async () => {
-    console.log(registerData);
     try {
       const dataToSend = {
         username: registerData.username,
