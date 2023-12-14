@@ -1,4 +1,4 @@
-package BAMProject.magazineApp.model.DTO;
+package BAMProject.magazineApp.model.DTO.Product;
 
 import lombok.Builder;
 import lombok.Getter;

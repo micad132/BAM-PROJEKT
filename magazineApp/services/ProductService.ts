@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AddProduct } from '../models/ProductModel';
+import { AddProduct, Product } from '../models/ProductModel';
 import { URL_LINK } from '../utils/utils';
 
 const getAllProducts = async () => {
@@ -12,4 +12,16 @@ const addProduct = async (data: AddProduct) => {
   return response.data;
 };
 
-export const ProductService = { getAllProducts, addProduct };
+const editProduct = async (data: Product) => {
+  const response = await axios.put(`${URL_LINK}/product`, data);
+  return response.data;
+};
+
+const deleteProduct = async (id: number) => {
+  const response = await axios.delete(`${URL_LINK}/product/${id}`);
+  return response.data;
+};
+
+export const ProductService = {
+  getAllProducts, addProduct, editProduct, deleteProduct,
+};

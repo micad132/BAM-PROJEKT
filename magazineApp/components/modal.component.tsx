@@ -18,6 +18,8 @@ type Props = {
     modalButtonText: string,
     modalContent: ReactNode,
     onSave: () => void,
+    buttonStyle?: any,
+    buttonSize?: string,
 }
 
 const StyledButton = styled(Button, {
@@ -28,7 +30,7 @@ const StyledButton = styled(Button, {
 });
 
 const ModalComponent = ({
-  modalTitle, modalButtonText, modalContent, onSave,
+  modalTitle, modalButtonText, modalContent, onSave, buttonStyle, buttonSize,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +42,7 @@ const ModalComponent = ({
       }}
     >
       <Dialog.Trigger asChild>
-        <StyledButton>{modalButtonText}</StyledButton>
+        <StyledButton size={buttonSize} style={buttonStyle}>{modalButtonText}</StyledButton>
       </Dialog.Trigger>
 
       <Adapt when="sm" platform="touch">

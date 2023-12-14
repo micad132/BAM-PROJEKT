@@ -20,13 +20,14 @@ type Props = {
     inputId: string,
     label: string,
     isBlackText: boolean,
+    defaultValue?: string,
 }
 const InputComponent = ({
-  placeholder, value, onChange, isPassword, inputId, label, isBlackText,
+  placeholder, value, onChange, isPassword, inputId, label, isBlackText, defaultValue,
 }: Props) => (
   <>
     <LabelTextComponent isBlack={isBlackText} htmlFor={inputId} text={label} />
-    <InputText size="$4" borderWidth={1} placeholder={placeholder} value={value} onChange={onChange} secureTextEntry={isPassword} id={inputId} />
+    <InputText size="$4" borderWidth={1} placeholder={defaultValue ?? placeholder} value={value} onChange={onChange} secureTextEntry={isPassword} id={inputId} />
   </>
 );
 

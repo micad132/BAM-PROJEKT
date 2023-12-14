@@ -1,7 +1,7 @@
 package BAMProject.magazineApp.controller;
-import BAMProject.magazineApp.model.DTO.ProductDTORequest;
-import BAMProject.magazineApp.model.DTO.ProductDTOResponse;
-import BAMProject.magazineApp.model.Product;
+import BAMProject.magazineApp.model.DTO.Product.EditProductDTORequest;
+import BAMProject.magazineApp.model.DTO.Product.ProductDTORequest;
+import BAMProject.magazineApp.model.DTO.Product.ProductDTOResponse;
 import BAMProject.magazineApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +29,17 @@ public class ProductController {
     public ResponseEntity<String> addProduct(@RequestBody ProductDTORequest productDTORequest) {
         productService.addProduct(productDTORequest);
         return ResponseEntity.ok("Dodano produkt!");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> editProduct(@RequestBody EditProductDTORequest editProductDTORequest) {
+        productService.editProduct(editProductDTORequest);
+        return ResponseEntity.ok("Edytowano produkt!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable ("id") Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.ok("Usunięto produkt!");
     }
 }

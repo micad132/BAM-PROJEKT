@@ -53,7 +53,7 @@ const ProductScreen = () => {
   const onSaveHandler = async () => {
     try {
       dispatch(addingProductThunk(newProductData));
-      ToastAndroid.show('cos', ToastAndroid.SHORT);
+      ToastAndroid.show('Produkt pomyslnie dodany!', ToastAndroid.SHORT);
     } catch (e: any) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }

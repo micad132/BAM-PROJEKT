@@ -10,8 +10,8 @@ export type Product = AddProduct & {
 
 export const INITIAL_ADD_PRODUCT_VALUES: AddProduct = {
   productName: '',
-  price: '0',
-  weight: '0',
+  price: '',
+  weight: '',
 };
 
 export const INITIAL_PRODUCT_VALUES: Product = {

@@ -36,12 +36,40 @@ export const fetchingProductsThunk = createAsyncThunk(
   },
 );
 
+export const editingProductThunk = createAsyncThunk(
+  'editProduct',
+  // eslint-disable-next-line consistent-return
+  async (editData: Product) => {
+    try {
+      await ProductService.editProduct(editData);
+      const data = await ProductService.getAllProducts();
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
 export const addingProductThunk = createAsyncThunk(
   'addProduct',
   // eslint-disable-next-line consistent-return
   async (productData: AddProduct) => {
     try {
       await ProductService.addProduct(productData);
+      const data = await ProductService.getAllProducts();
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const deletingProductThunk = createAsyncThunk(
+  'deleteProduct',
+  // eslint-disable-next-line consistent-return
+  async (id: number) => {
+    try {
+      await ProductService.deleteProduct(id);
       const data = await ProductService.getAllProducts();
       return data;
     } catch (e) {
@@ -65,6 +93,12 @@ const productSlice = createSlice({
     builder.addCase(addingProductThunk.fulfilled, (state, action) => {
       state.products = action.payload;
       state.isLoaded = true;
+    });
+    builder.addCase(editingProductThunk.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(deletingProductThunk.fulfilled, (state, action) => {
+      state.products = action.payload;
     });
   },
 });

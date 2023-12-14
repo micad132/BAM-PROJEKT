@@ -14,7 +14,11 @@ type Props = {
 
 const ProductsListComponent = ({ productList }: Props) => (
   <View>
-    <StyledH6>W bazie lacznie znajduje sie 6 produktow</StyledH6>
+    <StyledH6>
+      W bazie lacznie znajduje sie
+      { productList.length}
+      produktow
+    </StyledH6>
     {productList}
   </View>
 );

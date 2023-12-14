@@ -1,12 +1,11 @@
 package BAMProject.magazineApp.service;
 import BAMProject.magazineApp.mapper.ProductMapper;
-import BAMProject.magazineApp.model.DTO.ProductDTORequest;
-import BAMProject.magazineApp.model.DTO.ProductDTOResponse;
+import BAMProject.magazineApp.model.DTO.Product.EditProductDTORequest;
+import BAMProject.magazineApp.model.DTO.Product.ProductDTORequest;
+import BAMProject.magazineApp.model.DTO.Product.ProductDTOResponse;
 import BAMProject.magazineApp.model.Product;
 import BAMProject.magazineApp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +27,14 @@ public class ProductService {
     public void addProduct(ProductDTORequest productDTORequest) {
             Product product = productMapper.mapDTOToEntity(productDTORequest);
             productRepository.save(product);
+    }
+
+    public void editProduct(EditProductDTORequest editProductDTORequest) {
+        Product product = productMapper.mapEditDTOToEntity(editProductDTORequest);
+        productRepository.save(product);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }
