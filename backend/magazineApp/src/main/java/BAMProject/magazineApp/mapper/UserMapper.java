@@ -19,8 +19,6 @@ public class UserMapper {
                 .city(userDTORequest.getCity())
                 .postalCode(userDTORequest.getPostalCode())
                 .role(UserRole.USER)
-                .products(new ArrayList<>())
-                .storages(new ArrayList<>())
                 .build();
     }
 

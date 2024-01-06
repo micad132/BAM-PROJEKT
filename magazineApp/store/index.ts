@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import testReducer from './reducers/testReducer';
 import productReducer from './reducers/productReducer';
+import storageReducer from './reducers/storageReducer';
 
 export const store = configureStore({
   reducer: {
     product: productReducer,
+    storage: storageReducer,
   },
 });
 

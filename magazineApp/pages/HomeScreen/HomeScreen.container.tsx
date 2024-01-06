@@ -8,6 +8,7 @@ import LoggedUserHeaderComponent from './components/loggedUserHeader.component';
 import { useAppDispatch } from '../../store';
 import { fetchingProductsThunk } from '../../store/reducers/productReducer';
 import { ProductService } from '../../services/ProductService';
+import { fetchingStoragesThunk } from '../../store/reducers/storageReducer';
 
 const LogoutButton = styled(Button, {
   backgroundColor: '#fff',
@@ -32,6 +33,7 @@ const HomePage = ({ navigation }: any) => {
     };
     fetchLoggedUser();
     dispatch(fetchingProductsThunk());
+    dispatch(fetchingStoragesThunk());
   }, []);
 
   const handleLogout = () => navigation.dispatch(StackActions.replace('Login'));

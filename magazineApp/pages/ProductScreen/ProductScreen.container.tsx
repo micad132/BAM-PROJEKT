@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   NativeSyntheticEvent, Text, TextInputChangeEventData, ToastAndroid, View,
 } from 'react-native';
-import { ScrollView } from 'tamagui';
+import { ScrollView, Select } from 'tamagui';
 import PageWrapperComponent from '../../components/pageWrapper.component';
 import ModalComponent from '../../components/modal.component';
 import InputComponent from '../../components/input.component';
@@ -54,6 +54,7 @@ const ProductScreen = () => {
     try {
       dispatch(addingProductThunk(newProductData));
       ToastAndroid.show('Produkt pomyslnie dodany!', ToastAndroid.SHORT);
+      setNewProductData(INITIAL_ADD_PRODUCT_VALUES);
     } catch (e: any) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }

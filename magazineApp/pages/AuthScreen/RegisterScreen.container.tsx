@@ -11,6 +11,7 @@ import {
 } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
 import { AuthService } from '../../services/AuthService';
+import { ValidationService } from '../../services/ValidationService';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -32,6 +33,11 @@ const RegisterScreen = ({ navigation }: any) => {
   };
 
   const onSubmitHandle = async () => {
+    if (!ValidationService.checkPasswords(registerData.password, registerData.confirmPassword)) {
+      ToastAndroid.show('Hasła sie roznia!', ToastAndroid.SHORT);
+      return;
+    }
+
     try {
       const dataToSend = {
         username: registerData.username,

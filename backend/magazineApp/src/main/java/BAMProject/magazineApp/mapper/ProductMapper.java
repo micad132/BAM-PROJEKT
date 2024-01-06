@@ -32,7 +32,6 @@ public class ProductMapper {
                 .productName(productDTORequest.getProductName())
                 .price(productDTORequest.getPrice())
                 .weight(productDTORequest.getWeight())
-                .user(loggedUser)
                 .build();
     }
 
@@ -42,7 +41,6 @@ public class ProductMapper {
                 .weight(product.getWeight())
                 .price(product.getPrice())
                 .productName(product.getProductName())
-                .userName(product.getUser().getUsername())
                 .build();
     }
 
@@ -57,7 +55,6 @@ public class ProductMapper {
         product.setProductName(editProductDTORequest.getProductName());
         product.setPrice(editProductDTORequest.getPrice());
         product.setWeight(editProductDTORequest.getWeight());
-        product.setUser(loggedUser);
 
         return product;
     }

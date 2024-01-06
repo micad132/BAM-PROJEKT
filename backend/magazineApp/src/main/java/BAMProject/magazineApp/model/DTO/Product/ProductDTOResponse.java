@@ -12,5 +12,4 @@ public class ProductDTOResponse {
     private String productName;
     private String weight;
     private String price;
-    private String userName;
 }

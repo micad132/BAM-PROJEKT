@@ -1,10 +1,12 @@
 import React, { ReactNode } from 'react';
 import { View } from 'react-native';
-import { styled } from 'tamagui';
+import { ScrollView, styled } from 'tamagui';
 
-const PageWraper = styled(View, {
+const PageWraper = styled(ScrollView, {
   backgroundColor: '#111',
   height: '100%',
+  paddingTop: 10,
+  paddingBottom: 10,
 });
 
 type Props = {

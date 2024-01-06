@@ -37,12 +37,4 @@ public class User {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private List<Storage> storages = new ArrayList<>();
-
 }

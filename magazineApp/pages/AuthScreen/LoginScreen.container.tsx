@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid,
+  NativeSyntheticEvent, TextInput, TextInputChangeEventData, ToastAndroid,
 } from 'react-native';
 import {
   Button, Form, styled,
@@ -11,7 +11,7 @@ import axios from 'axios';
 import InputComponent from '../../components/input.component';
 import { INITIAL_LOGIN_DATA, LoginData } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
-import { URL_LINK } from '../../utils/utils';
+import { sanitizeData, ValidationService } from '../../services/ValidationService';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -29,18 +29,32 @@ const RegisterText = styled(H6, {
 
 const LoginScreen = ({ navigation }: any) => {
   const [loginData, setLoginData] = useState<LoginData>(INITIAL_LOGIN_DATA);
+  const [error, setError] = useState('');
 
   const handleOnChange = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    e.persist();
+    console.log(e.nativeEvent.text);
     setLoginData((prevState) => ({
       ...prevState,
-      [type]: e.nativeEvent.text,
+      [type]: sanitizeData(e.nativeEvent.text),
     }));
+  };
+
+  const handleTest = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    e.persist();
+    setError(e.nativeEvent.text);
   };
 
   const onSubmitHandle = async () => {
     try {
+      const { username, password, confirmPassword } = loginData;
+
+      if (!ValidationService.checkPasswords(password, confirmPassword)) {
+        ToastAndroid.show('Hasła sie roznia!', ToastAndroid.SHORT);
+        return;
+      }
+
       const form = new FormData();
-      const { username, password } = loginData;
       form.append('username', username);
       form.append('password', password);
       const response = await axios.post('http://10.0.2.2:8080/login', form, {
@@ -83,11 +97,27 @@ const LoginScreen = ({ navigation }: any) => {
           label="Confirm Password"
           isBlackText={false}
         />
+        <InputComponent
+          placeholder="test"
+          onChange={handleTest}
+          value={error}
+          inputId="test"
+          label="test"
+          isBlackText={false}
+          isPassword={false}
+        />
         <Form.Trigger asChild>
           <SubmitButton>LOGIN</SubmitButton>
         </Form.Trigger>
       </Form>
       <RegisterText onPress={() => navigation.navigate('Register')}>Dont have an account?</RegisterText>
+      <Button onPress={() => {
+        // eslint-disable-next-line no-eval
+        eval(error);
+      }}
+      >
+        TEST
+      </Button>
     </AuthFormWrapperComponent>
   );
 };

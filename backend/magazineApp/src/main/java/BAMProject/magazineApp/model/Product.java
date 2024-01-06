@@ -3,6 +3,10 @@ package BAMProject.magazineApp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,14 +24,13 @@ public class Product {
     @Column(name = "product_name")
     private String productName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "price")
     private String price;
 
     @Column(name = "weight")
     private String weight;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Storage> storages = new ArrayList<>();
 
 }

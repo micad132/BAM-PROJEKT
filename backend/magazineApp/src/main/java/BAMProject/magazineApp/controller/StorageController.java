@@ -1,7 +1,11 @@
 package BAMProject.magazineApp.controller;
+import BAMProject.magazineApp.model.DTO.Storage.EditStorageDTORequest;
+import BAMProject.magazineApp.model.DTO.Storage.StorageDTORequest;
+import BAMProject.magazineApp.model.DTO.Storage.StorageDTOResponse;
 import BAMProject.magazineApp.model.Storage;
 import BAMProject.magazineApp.service.StorageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +18,25 @@ public class StorageController {
 
 
     @GetMapping
-    public List<Storage> getAllStorages() {
+    public List<StorageDTOResponse> getAllStorages() {
         return storageService.getAllStorages();
     }
 
     @PostMapping
-    public Storage createStorage(@RequestBody Storage storage) {
-        return storageService.createStorage(storage);
+    public ResponseEntity<String> addStorage(@RequestBody StorageDTORequest storageDTORequest) {
+        storageService.addStorage(storageDTORequest);
+        return ResponseEntity.ok("Dodano magazyn");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStorage(@PathVariable ("id") Long id) {
+        storageService.deleteStorage(id);
+        return ResponseEntity.ok("Usunieto magazyn");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> editStorage(@RequestBody EditStorageDTORequest editStorageDTORequest) {
+        storageService.editStorage(editStorageDTORequest);
+        return ResponseEntity.ok("Edytowano magazyn");
     }
 }
