@@ -1,9 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { ScrollView } from 'tamagui';
-import { StorageModel } from '../../../models/StorageModel';
-import { useAppSelector } from '../../../store';
+import React, { useState } from 'react';
+import {
+  View, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData,
+} from 'react-native';
+import { Button, ScrollView } from 'tamagui';
+import { EDIT_STORAGE_INITIAL_VALUES, EditStorage, StorageModel } from '../../../models/StorageModel';
+import { useAppDispatch, useAppSelector } from '../../../store';
 import { getProducts } from '../../../store/reducers/productReducer';
+import { deletingStorageThunk, editingStorageThunk } from '../../../store/reducers/storageReducer';
+import InputComponent from '../../../components/input.component';
+import SelectComponent from '../../../components/select.component';
+import ModalComponent from '../../../components/modal.component';
 
 const styles = StyleSheet.create({
   storageWrapper: {
@@ -14,12 +20,29 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     borderWidth: 2,
     infoWrapper: {
-      alignItems: 'center', // Wyśrodkowanie w poziomie
-      justifyContent: 'center', // Wyśrodkowanie w pionie
+      flex: 1,
+      flexDirection: 'row',
       paddingTop: 10,
       paddingBottom: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
       text: {
         color: 'white',
+      },
+      info: {
+        width: '50%',
+        justifyContent: 'space-evenly',
+        paddingLeft: 20,
+      },
+      buttons: {
+        width: '50%',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        gap: 10,
+        button: {
+          width: '60%',
+          height: '40%',
+        },
       },
     },
     productsWrapper: {
@@ -52,8 +75,62 @@ interface Props {
 }
 
 const SingleStorage = ({ storage }: Props) => {
-  console.log('SJJDS', storage);
-  const products = storage.products.map((product) => (
+  const [editStorageData, setEditStorageData] = useState<EditStorage>(EDIT_STORAGE_INITIAL_VALUES);
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(getProducts);
+
+  const onDeleteHandler = () => {
+    dispatch(deletingStorageThunk(storage.id));
+    ToastAndroid.show('Magazyn pomyslnie usunięty!', ToastAndroid.SHORT);
+  };
+
+  const onEditHandler = () => {
+    dispatch(editingStorageThunk(editStorageData));
+    ToastAndroid.show('Magazyn pomyslnie edytowany!', ToastAndroid.SHORT);
+  };
+
+  const onAddChangeHandler = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    e.persist();
+    setEditStorageData((prevState) => ({
+      ...prevState,
+      [type]: e.nativeEvent.text,
+    }));
+  };
+
+  const onAddProducts = (selectedProducts: any) => {
+    setEditStorageData((prevState) => ({
+      ...prevState,
+      productsIds: selectedProducts,
+    }));
+  };
+
+  const editingStorageContent = (
+    <View>
+      <InputComponent
+        placeholder="Nazwa magazynu"
+        value={editStorageData.storageName}
+        onChange={onAddChangeHandler('storageName')}
+        isPassword={false}
+        inputId="newStorageName"
+        label="Nazwa magazynu"
+        isBlackText
+        defaultValue={storage.storageName}
+      />
+      <InputComponent
+        placeholder="Pojemność magazynu"
+        value={editStorageData.storageCapacity}
+        onChange={onAddChangeHandler('storageCapacity')}
+        isPassword={false}
+        inputId="newStorageCapacity"
+        label="Storage capacity"
+        isBlackText
+        defaultValue={storage.storageCapacity}
+      />
+      <SelectComponent products={products} onAddProducts={onAddProducts} />
+    </View>
+  );
+
+  const mappedProducts = storage.products.map((product) => (
     <View style={styles.storageWrapper.productsWrapper.singleProduct} key={product.id}>
       <Text style={styles.storageWrapper.productsWrapper.singleProduct.text}>{product.productName}</Text>
       <Text style={styles.storageWrapper.productsWrapper.singleProduct.text}>{product.price}</Text>
@@ -62,22 +139,35 @@ const SingleStorage = ({ storage }: Props) => {
   return (
     <ScrollView style={styles.storageWrapper}>
       <View style={styles.storageWrapper.infoWrapper}>
-        <Text style={styles.storageWrapper.infoWrapper.text}>
-          ID:
-          {storage.id}
-        </Text>
-        <Text style={styles.storageWrapper.infoWrapper.text}>
-          Nazwa:
-          {storage.storageName}
-        </Text>
-        <Text style={styles.storageWrapper.infoWrapper.text}>
-          Pojemność magazynu(kg):
-          {storage.storageCapacity}
-        </Text>
+        <View style={styles.storageWrapper.infoWrapper.info}>
+          <Text style={styles.storageWrapper.infoWrapper.text}>
+            ID:
+            {storage.id}
+          </Text>
+          <Text style={styles.storageWrapper.infoWrapper.text}>
+            Nazwa:
+            {storage.storageName}
+          </Text>
+          <Text style={styles.storageWrapper.infoWrapper.text}>
+            Pojemność magazynu(kg):
+            {storage.storageCapacity}
+          </Text>
+        </View>
+        <View style={styles.storageWrapper.infoWrapper.buttons}>
+          <ModalComponent
+            buttonStyle={styles.storageWrapper.infoWrapper.buttons.button}
+            modalButtonText="EDYTUJ"
+            modalTitle="Edytuj magazyn"
+            modalContent={editingStorageContent}
+            onSave={onEditHandler}
+          />
+          <Button onPress={onDeleteHandler} style={styles.storageWrapper.infoWrapper.buttons.button}>USUŃ</Button>
+        </View>
+
       </View>
       <View style={styles.storageWrapper.productsWrapper}>
         <Text style={styles.storageWrapper.productsWrapper.text}>Produkty:</Text>
-        {products}
+        {mappedProducts}
       </View>
     </ScrollView>
   );

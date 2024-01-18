@@ -5,10 +5,11 @@ import { StackActions } from '@react-navigation/native';
 import axios from 'axios';
 import PageWrapperComponent from '../../components/pageWrapper.component';
 import LoggedUserHeaderComponent from './components/loggedUserHeader.component';
-import { useAppDispatch } from '../../store';
-import { fetchingProductsThunk } from '../../store/reducers/productReducer';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { fetchingProductsThunk, getProducts } from '../../store/reducers/productReducer';
 import { ProductService } from '../../services/ProductService';
-import { fetchingStoragesThunk } from '../../store/reducers/storageReducer';
+import { fetchingStoragesThunk, getStorages } from '../../store/reducers/storageReducer';
+import ContentTable from './components/contentTable.component';
 
 const LogoutButton = styled(Button, {
   backgroundColor: '#fff',
@@ -21,6 +22,8 @@ const LogoutButton = styled(Button, {
 const HomePage = ({ navigation }: any) => {
   const [loggedUser, setLoggedUser] = useState<any>({});
   const dispatch = useAppDispatch();
+  const products = useAppSelector(getProducts);
+  const storages = useAppSelector(getStorages);
 
   useEffect(() => {
     const fetchLoggedUser = async () => {
@@ -37,10 +40,23 @@ const HomePage = ({ navigation }: any) => {
   }, []);
 
   const handleLogout = () => navigation.dispatch(StackActions.replace('Login'));
+
+  const properHomeContent = loggedUser.username ? (
+    <>
+      <LogoutButton onPress={handleLogout}>Wyloguj się</LogoutButton>
+      <LoggedUserHeaderComponent
+        userName={loggedUser.username}
+      />
+      <ContentTable
+        productCount={products.length}
+        storageCount={storages.length}
+      />
+    </>
+  ) : (<PageWrapperComponent><Text>Nie jesteś zalogowany</Text></PageWrapperComponent>);
+
   return (
     <PageWrapperComponent>
-      <LogoutButton onPress={handleLogout}>Wyloguj się</LogoutButton>
-      <LoggedUserHeaderComponent userName={loggedUser.username} />
+      {properHomeContent}
     </PageWrapperComponent>
   );
 };

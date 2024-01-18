@@ -1,0 +1,45 @@
+import { View, Text, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    width: '90%',
+    marginTop: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    justifyContent: 'space-evenly',
+    paddingTop: 5,
+
+    singleInfo: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'white',
+      padding: 5,
+
+      numberInfo: {
+        fontWeight: 'bold',
+        fontSize: 17,
+      },
+    },
+  },
+});
+
+interface Props {
+    productCount: number,
+    storageCount: number,
+}
+
+const ContentTable = ({ productCount, storageCount }: Props) => (
+  <View style={styles.wrapper}>
+    <View style={styles.wrapper.singleInfo}>
+      <Text>Ilość produktów w bazie</Text>
+      <Text style={styles.wrapper.singleInfo.numberInfo}>{productCount}</Text>
+    </View>
+    <View style={styles.wrapper.singleInfo}>
+      <Text>Ilość magazynów w bazie</Text>
+      <Text style={styles.wrapper.singleInfo.numberInfo}>{storageCount}</Text>
+    </View>
+  </View>
+);
+
+export default ContentTable;

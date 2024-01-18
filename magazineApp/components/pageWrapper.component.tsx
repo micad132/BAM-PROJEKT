@@ -1,18 +1,26 @@
 import React, { ReactNode } from 'react';
-import { View } from 'react-native';
-import { ScrollView, styled } from 'tamagui';
+import { styled, YStack } from 'tamagui';
+import {
+
+  ScrollView,
+
+} from 'react-native';
 
 const PageWraper = styled(ScrollView, {
   backgroundColor: '#111',
-  height: '100%',
+  minHeight: '100%',
   paddingTop: 10,
-  paddingBottom: 10,
+  flex: 1,
 });
 
 type Props = {
     children: ReactNode,
 }
 
-const PageWrapperComponent = ({ children }: Props) => <PageWraper>{children}</PageWraper>;
+const PageWrapperComponent = ({ children }: Props) => (
+  <PageWraper>
+    {children}
+  </PageWraper>
+);
 
 export default PageWrapperComponent;

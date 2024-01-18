@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URL_LINK } from '../utils/utils';
-import { AddStorage, StorageModel } from '../models/StorageModel';
+import { AddStorage, EditStorage, StorageModel } from '../models/StorageModel';
 
 const getAllStorages = async () => {
   const response = await axios.get(`${URL_LINK}/storage`);
@@ -8,7 +8,6 @@ const getAllStorages = async () => {
 };
 
 const addStorage = async (storageData: AddStorage) => {
-  console.log('Z SERWISU', storageData);
   const response = await axios.post(`${URL_LINK}/storage`, storageData);
   return response.data;
 };
@@ -18,7 +17,7 @@ const deleteStorage = async (id: number) => {
   return response.data;
 };
 
-const editStorage = async (storageData: StorageModel) => {
+const editStorage = async (storageData: EditStorage) => {
   const response = await axios.put(`${URL_LINK}/storage`, storageData);
   return response.data;
 };

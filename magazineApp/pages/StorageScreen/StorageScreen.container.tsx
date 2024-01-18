@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, Text, TextInputChangeEventData, ToastAndroid, View,
+  NativeSyntheticEvent, Text, TextInputChangeEventData, ToastAndroid, View, StyleSheet,
 } from 'react-native';
 import { ScrollView } from 'tamagui';
 import PageWrapperComponent from '../../components/pageWrapper.component';
@@ -25,7 +25,7 @@ const StorageScreen = () => {
   const onSaveHandler = () => {
     const addData: AddStorage = {
       storageName: storageData.storageName,
-      storageCapacity: storageData.capacity,
+      storageCapacity: storageData.storageCapacity,
       productsIds: storageData.productsIds,
     };
     dispatch(addingStorageThunk(addData));
@@ -61,8 +61,8 @@ const StorageScreen = () => {
       />
       <InputComponent
         placeholder="Pojemnosc magazynu"
-        value={storageData.capacity}
-        onChange={onAddChangeHandler('capacity')}
+        value={storageData.storageCapacity}
+        onChange={onAddChangeHandler('storageCapacity')}
         isPassword={false}
         inputId="newStorageCapacity"
         label="Pojemnosc magazynu"
@@ -78,6 +78,14 @@ const StorageScreen = () => {
       <StoragesListComponent storagesList={storagesList} />
     </PageWrapperComponent>
   );
+
+  // return (
+  //   <ScrollView>
+  //     <ModalComponent modalButtonText="Dodaj" modalTitle="Dodaj magazyn" modalContent={modalContent} onSave={onSaveHandler} />
+  //     <StoragesListComponent storagesList={storagesList} />
+  //     <StoragesListComponent storagesList={storagesList} />
+  //   </ScrollView>
+  // );
 };
 
 export default StorageScreen;

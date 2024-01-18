@@ -7,6 +7,13 @@ export type StorageModel = {
     products: Product[]
 }
 
+export type EditStorage = {
+    id: number,
+    storageName: string,
+    storageCapacity: string,
+    productsIds: string[],
+}
+
 export type AddStorage = {
     storageName: string,
     storageCapacity: string,
@@ -16,5 +23,12 @@ export type AddStorage = {
 export const ADD_STORAGE_INITIAL_VALUES: AddStorage = {
   storageName: '',
   storageCapacity: '',
+  productsIds: [],
+};
+
+export const EDIT_STORAGE_INITIAL_VALUES: EditStorage = {
+  id: 0,
+  storageCapacity: '',
+  storageName: '',
   productsIds: [],
 };

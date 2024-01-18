@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import {
-  NativeSyntheticEvent, Text, TextInputChangeEventData, View, ToastAndroid,
+  NativeSyntheticEvent, Text, TextInputChangeEventData, View, ToastAndroid, Alert,
 } from 'react-native';
 import {
   Button, Form, H3, styled,
 } from 'tamagui';
 import InputComponent from '../../components/input.component';
 import {
-  INITIAL_REGISTER_DATA, RegisterData,
+  INITIAL_REGISTER_DATA, INITIAL_REGISTER_ERROR_DATA, RegisterData, RegisterError,
 } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
 import { AuthService } from '../../services/AuthService';
-import { ValidationService } from '../../services/ValidationService';
+import {
+  checkPasswords, ifContainsIllegalChar, ifStringIsInvalid, sanitizeData,
+} from '../../services/ValidationService';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -24,20 +26,57 @@ const RegisterHeading = styled(H3, {
 
 const RegisterScreen = ({ navigation }: any) => {
   const [registerData, setRegisterData] = useState<RegisterData>(INITIAL_REGISTER_DATA);
+  const [registerErrors, setRegisterErrors] = useState<RegisterError>(INITIAL_REGISTER_ERROR_DATA);
 
   const handleOnChange = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    e.persist();
     setRegisterData((prevState) => ({
       ...prevState,
-      [type]: e.nativeEvent.text,
+      [type]: sanitizeData(e.nativeEvent.text),
     }));
   };
 
   const onSubmitHandle = async () => {
-    if (!ValidationService.checkPasswords(registerData.password, registerData.confirmPassword)) {
-      ToastAndroid.show('Hasła sie roznia!', ToastAndroid.SHORT);
-      return;
+    setRegisterErrors(INITIAL_REGISTER_ERROR_DATA);
+    const postalCodeRegex = /^[0-9]{2}-[0-9]{3}$/;
+    const {
+      username, password, confirmPassword, postalCode, city,
+    } = registerData;
+    const errorData: RegisterError = { ...INITIAL_REGISTER_ERROR_DATA };
+
+    let isError = false;
+    if (ifStringIsInvalid(username)) {
+      isError = true;
+      errorData.usernameError = 'Invalid username!';
+    }
+    if (ifStringIsInvalid(password)) {
+      isError = true;
+      errorData.passwordError = 'Invalid password!';
+    }
+    if (ifStringIsInvalid(confirmPassword)) {
+      isError = true;
+      errorData.confirmPasswordError = 'Invalid confirm password!';
+    }
+    if (ifStringIsInvalid(city)) {
+      isError = true;
+      errorData.cityError = 'Invalid city!';
+    }
+    if (ifStringIsInvalid(postalCode) || !postalCodeRegex.test(postalCode)) {
+      isError = true;
+      errorData.postalCodeError = 'Invalid postal code!';
     }
 
+    if (!checkPasswords(password, confirmPassword)) {
+      isError = true;
+      errorData.passwordError = 'Passwords are not the same!';
+      errorData.confirmPasswordError = 'Passwords are not the same!';
+    }
+
+    if (isError) {
+      setRegisterErrors(errorData);
+      ToastAndroid.show('Invalid data!', ToastAndroid.SHORT);
+      return;
+    }
     try {
       const dataToSend = {
         username: registerData.username,
@@ -65,6 +104,7 @@ const RegisterScreen = ({ navigation }: any) => {
           inputId="RegisterUsername"
           label="Username"
           isBlackText={false}
+          errorText={registerErrors.usernameError}
         />
         <InputComponent
           placeholder="Type your password here..."
@@ -74,6 +114,7 @@ const RegisterScreen = ({ navigation }: any) => {
           inputId="RegisterPassword"
           label="Password"
           isBlackText={false}
+          errorText={registerErrors.passwordError}
         />
         <InputComponent
           placeholder="Confirm your password"
@@ -83,6 +124,7 @@ const RegisterScreen = ({ navigation }: any) => {
           inputId="RegisterConfirmPassword"
           label="Confirm Password"
           isBlackText={false}
+          errorText={registerErrors.confirmPasswordError}
         />
         <InputComponent
           placeholder="Type your city here..."
@@ -92,6 +134,7 @@ const RegisterScreen = ({ navigation }: any) => {
           inputId="RegisterCity"
           label="City"
           isBlackText={false}
+          errorText={registerErrors.cityError}
         />
         <InputComponent
           placeholder="Type your postalcode here"
@@ -101,6 +144,7 @@ const RegisterScreen = ({ navigation }: any) => {
           inputId="RegisterPostalCode"
           label="Postal Code"
           isBlackText={false}
+          errorText={registerErrors.postalCodeError}
         />
         <Form.Trigger asChild>
           <SubmitButton>REGISTER</SubmitButton>

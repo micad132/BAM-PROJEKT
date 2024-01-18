@@ -89,9 +89,6 @@ const ModalComponent = ({
           unstyled
         >
           <Dialog.Title>{modalTitle}</Dialog.Title>
-          <Dialog.Description>
-            Make changessss to your profile here. Click save when done.
-          </Dialog.Description>
           {modalContent}
           <Dialog.Close displayWhenAdapted asChild>
             <Button theme="alt1" aria-label="Close" onPress={onSave}>

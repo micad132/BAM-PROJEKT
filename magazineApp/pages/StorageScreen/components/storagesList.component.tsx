@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { H6, styled } from 'tamagui';
 import { StorageModel } from '../../../models/StorageModel';
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const StoragesListComponent = ({ storagesList }: Props) => (
-  <View>
+  <ScrollView>
     <StyledH6>
       W bazie znajduje się
       {storagesList.length}
@@ -22,7 +22,7 @@ const StoragesListComponent = ({ storagesList }: Props) => (
       magazynów
     </StyledH6>
     {storagesList}
-  </View>
+  </ScrollView>
 );
 
 export default StoragesListComponent;

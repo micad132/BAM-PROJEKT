@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import axios from 'axios';
+import { RootSiblingParent } from 'react-native-root-siblings';
 import config from './tamagui.config';
 import { store } from './store';
 import StackNavigatorComponent, { TabNavigatorComponent } from './router';
@@ -40,15 +41,17 @@ export default function App() {
   const properContent = isLogged ? <TabNavigatorComponent /> : <StackNavigatorComponent />;
 
   return (
-    <Provider store={store}>
-      <TamaguiProvider config={config}>
-        <NavigationContainer>
-          <View style={styles.container}>
-            {properContent}
-          </View>
-        </NavigationContainer>
-      </TamaguiProvider>
-    </Provider>
+    <RootSiblingParent>
+      <Provider store={store}>
+        <TamaguiProvider config={config}>
+          <NavigationContainer>
+            <View style={styles.container}>
+              {properContent}
+            </View>
+          </NavigationContainer>
+        </TamaguiProvider>
+      </Provider>
+    </RootSiblingParent>
 
   );
 }

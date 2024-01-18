@@ -3,7 +3,7 @@ import axios from 'axios';
 import { RootState } from '../index';
 import { AddProduct, Product } from '../../models/ProductModel';
 import { ProductService } from '../../services/ProductService';
-import { AddStorage, StorageModel } from '../../models/StorageModel';
+import { AddStorage, EditStorage, StorageModel } from '../../models/StorageModel';
 import { StoragesService } from '../../services/StoragesService';
 
 interface StorageReducer {
@@ -41,9 +41,9 @@ export const fetchingStoragesThunk = createAsyncThunk(
 export const editingStorageThunk = createAsyncThunk(
   'editStorage',
   // eslint-disable-next-line consistent-return
-  async (editData: Product) => {
+  async (editData: EditStorage) => {
     try {
-      await ProductService.editProduct(editData);
+      await StoragesService.editStorage(editData);
       const data = await StoragesService.getAllStorages();
       return data;
     } catch (e) {
