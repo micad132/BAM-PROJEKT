@@ -92,6 +92,7 @@ const SingleStorage = ({ storage }: Props) => {
   };
 
   const onEditHandler = () => {
+    console.log('WBILEM');
     setStorageError(STORAGE_ERROR_INITIAL_VALUES);
     const numberRegex = /^[0-9.]+$/;
     let isError = false;
@@ -116,6 +117,8 @@ const SingleStorage = ({ storage }: Props) => {
       return;
     }
     try {
+      console.log('DATA', editStorageData);
+      return;
       dispatch(editingStorageThunk(editStorageData));
       ToastAndroid.show('Storage edited successfully!', ToastAndroid.SHORT);
     } catch (e) {
@@ -142,10 +145,10 @@ const SingleStorage = ({ storage }: Props) => {
     <View>
       <InputComponent
         placeholder="Storage name"
-        value={editStorageData.storageName}
+        value={String(editStorageData.storageName)}
         onChange={onAddChangeHandler('storageName')}
         isPassword={false}
-        inputId="newStorageName"
+        inputId="newStorageNameee"
         label="Storage name"
         isBlackText
         defaultValue={storage.storageName}
@@ -153,17 +156,17 @@ const SingleStorage = ({ storage }: Props) => {
       />
       <InputComponent
         placeholder="Storage capacity"
-        value={editStorageData.storageCapacity}
+        value={String(editStorageData.storageCapacity)}
         onChange={onAddChangeHandler('storageCapacity')}
         isPassword={false}
-        inputId="newStorageCapacity"
+        inputId="newStorageCapacityeee"
         label="Storage capacity"
         isBlackText
-        defaultValue={storage.storageCapacity}
+        defaultValue={String(storage.storageCapacity)}
         errorText={storageError.storageCapacityError}
       />
       <SelectComponent products={products} onAddProducts={onAddProducts} />
-      {storageError.productsIdsError && <Text style={{ color: 'red' }}>{storageError.productsIdsError}</Text> }
+      {/* {storageError.productsIdsError && <Text style={{ color: 'red' }}>{storageError.productsIdsError}</Text> } */}
     </View>
   );
 

@@ -10,6 +10,7 @@ import { fetchingProductsThunk, getProducts } from '../../store/reducers/product
 import { ProductService } from '../../services/ProductService';
 import { fetchingStoragesThunk, getStorages } from '../../store/reducers/storageReducer';
 import ContentTable from './components/contentTable.component';
+import { URL_LINK } from '../../utils/utils';
 
 const LogoutButton = styled(Button, {
   backgroundColor: '#fff',
@@ -28,7 +29,7 @@ const HomePage = ({ navigation }: any) => {
   useEffect(() => {
     const fetchLoggedUser = async () => {
       try {
-        const data = await axios.get('http://10.0.2.2:8080/api/v1/user/logged');
+        const data = await axios.get(`${URL_LINK}/user/logged`);
         setLoggedUser(data.data);
       } catch (e) {
         console.log(e);

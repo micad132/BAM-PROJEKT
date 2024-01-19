@@ -74,7 +74,6 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .clearAuthentication(true);
 
-//        httpSecurity.cors().configurationSource(corsConfigurationSource);
 
         return httpSecurity.build();
     }

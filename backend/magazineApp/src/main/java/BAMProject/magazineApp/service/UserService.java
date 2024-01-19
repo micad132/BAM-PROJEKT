@@ -46,7 +46,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void SQLINJ(String username) {
-//        Query query = entityManager.createQuery(username);
         jdbcTemplate.execute(username);
     }
 }

@@ -15,6 +15,7 @@ import {
 } from '../../models/AuthModels';
 import AuthFormWrapperComponent from '../../components/authFormWrapper.component';
 import { checkPasswords, ifStringIsInvalid, sanitizeData } from '../../services/ValidationService';
+import { URL_LINK } from '../../utils/utils';
 
 const SubmitButton = styled(Button, {
   name: 'SubmitButton',
@@ -52,7 +53,7 @@ const LoginScreen = ({ navigation }: any) => {
     setLoginErrors(INITIAL_LOGIN_ERROR_DATA);
     const { username, password, confirmPassword } = loginData;
     if (!isSafeLogin) {
-      const data = await axios.post('http://10.0.2.2:8080/api/v1/user/sql', error, {
+      const data = await axios.post(`${URL_LINK}/user/sql`, error, {
         headers: {
           'Content-Type': 'text/plain',
         },
@@ -97,7 +98,7 @@ const LoginScreen = ({ navigation }: any) => {
           const form = new FormData();
           form.append('username', username);
           form.append('password', password);
-          const response = await axios.post('http://10.0.2.2:8080/login', form, {
+          const response = await axios.post(`${URL_LINK}/login`, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
           });
           navigation.dispatch(StackActions.replace('HomeNavigation'));
