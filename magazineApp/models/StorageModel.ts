@@ -20,6 +20,12 @@ export type AddStorage = {
     productsIds: string[],
 }
 
+export type StorageError = {
+    storageNameError: string,
+    storageCapacityError: string,
+    productsIdsError: string,
+}
+
 export const ADD_STORAGE_INITIAL_VALUES: AddStorage = {
   storageName: '',
   storageCapacity: '',
@@ -31,4 +37,10 @@ export const EDIT_STORAGE_INITIAL_VALUES: EditStorage = {
   storageCapacity: '',
   storageName: '',
   productsIds: [],
+};
+
+export const STORAGE_ERROR_INITIAL_VALUES: StorageError = {
+  storageNameError: '',
+  storageCapacityError: '',
+  productsIdsError: '',
 };

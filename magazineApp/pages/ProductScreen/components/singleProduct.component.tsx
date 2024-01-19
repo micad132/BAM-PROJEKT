@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid,
+  View, Text, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, Image,
 } from 'react-native';
 import { Button, styled } from 'tamagui';
-import { AddProduct, INITIAL_ADD_PRODUCT_VALUES, Product } from '../../../models/ProductModel';
+import {
+  AddProduct,
+  INITIAL_ADD_PRODUCT_VALUES,
+  INITIAL_PRODUCT_ERROR_VALUES,
+  Product,
+  ProductError,
+} from '../../../models/ProductModel';
 import ModalComponent from '../../../components/modal.component';
 import InputComponent from '../../../components/input.component';
 import { deletingProductThunk, editingProductThunk } from '../../../store/reducers/productReducer';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { AuthService } from '../../../services/AuthService';
+import { getStorages } from '../../../store/reducers/storageReducer';
+import { ifStringIsInvalid } from '../../../services/ValidationService';
 
 type Props = {
     product: Product,
@@ -69,7 +78,9 @@ const SingleProductComponent = ({
   product,
 }: Props) => {
   const [editingProductData, setEditingProductData] = useState<AddProduct>(INITIAL_ADD_PRODUCT_VALUES);
+  const [editProductErrors, setEditProductErrors] = useState<ProductError>(INITIAL_PRODUCT_ERROR_VALUES);
   const dispatch = useAppDispatch();
+  const storages = useAppSelector(getStorages);
   const onAddChangeHandler = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     e.persist();
     setEditingProductData((prevState) => ({
@@ -79,8 +90,29 @@ const SingleProductComponent = ({
   };
 
   const onEditHandler = () => {
-    console.log(product);
     console.log(editingProductData);
+    const numberRegex = /^[0-9.]+$/;
+    let isError = false;
+    const errorData = {
+      ...INITIAL_PRODUCT_ERROR_VALUES,
+    };
+    if (ifStringIsInvalid(editingProductData.productName)) {
+      isError = true;
+      errorData.productNameError = 'Invalid product name!';
+    }
+    if (ifStringIsInvalid(editingProductData.weight) || !numberRegex.test(editingProductData.weight)) {
+      isError = true;
+      errorData.productWeightError = 'Invalid weight!';
+    }
+    if (ifStringIsInvalid(editingProductData.price) || !numberRegex.test(editingProductData.price)) {
+      isError = true;
+      errorData.productPriceError = 'Invalid price!';
+    }
+    if (isError) {
+      setEditProductErrors(errorData);
+      ToastAndroid.show('Invalid data!', ToastAndroid.SHORT);
+      return;
+    }
     const data = {
       ...editingProductData,
       id: product.id,
@@ -94,10 +126,36 @@ const SingleProductComponent = ({
   };
 
   const onDeleteHandler = () => {
+    let isInvalid = false;
     try {
+      console.log(product.id);
+      storages.forEach((storage) => storage.products.forEach((producttt) => {
+        if (producttt.id === product.id) {
+          ToastAndroid.show('Nie mozna usunac! Istnieje magazyn z tym produktem. Najpierw usun magazyn!', ToastAndroid.SHORT);
+          isInvalid = true;
+        }
+      }));
+      if (isInvalid) {
+        return;
+      }
       dispatch(deletingProductThunk(Number(product.id)));
       ToastAndroid.show('Produkt pomyslnie usunięty!', ToastAndroid.SHORT);
     } catch (e: any) {
+      ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
+    }
+  };
+
+  const onXssHandler = async () => {
+    const badUser = {
+      username: 'zlosliwyuser',
+      password: 'xssatak',
+      city: 'Krakow',
+      postalCode: '12-345',
+    };
+    try {
+      await AuthService.registerUser(badUser);
+      ToastAndroid.show('User dodany poprzez XSS!', ToastAndroid.SHORT);
+    } catch (e) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
   };
@@ -134,6 +192,7 @@ const SingleProductComponent = ({
         isBlackText
         defaultValue={product.weight}
       />
+      <Image style={{ width: 10, height: 10 }} source={{ uri: 'https://example.com/nonexistent-image.jpg' }} alt="XSS" onError={onXssHandler} />
     </View>
   );
   return (

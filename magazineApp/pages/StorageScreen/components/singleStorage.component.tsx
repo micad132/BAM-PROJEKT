@@ -3,13 +3,19 @@ import {
   View, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData,
 } from 'react-native';
 import { Button, ScrollView } from 'tamagui';
-import { EDIT_STORAGE_INITIAL_VALUES, EditStorage, StorageModel } from '../../../models/StorageModel';
+import {
+  EDIT_STORAGE_INITIAL_VALUES,
+  EditStorage,
+  STORAGE_ERROR_INITIAL_VALUES, StorageError,
+  StorageModel,
+} from '../../../models/StorageModel';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { getProducts } from '../../../store/reducers/productReducer';
 import { deletingStorageThunk, editingStorageThunk } from '../../../store/reducers/storageReducer';
 import InputComponent from '../../../components/input.component';
 import SelectComponent from '../../../components/select.component';
 import ModalComponent from '../../../components/modal.component';
+import { ifStringIsInvalid } from '../../../services/ValidationService';
 
 const styles = StyleSheet.create({
   storageWrapper: {
@@ -76,6 +82,7 @@ interface Props {
 
 const SingleStorage = ({ storage }: Props) => {
   const [editStorageData, setEditStorageData] = useState<EditStorage>(EDIT_STORAGE_INITIAL_VALUES);
+  const [storageError, setStorageError] = useState<StorageError>(STORAGE_ERROR_INITIAL_VALUES);
   const dispatch = useAppDispatch();
   const products = useAppSelector(getProducts);
 
@@ -85,8 +92,35 @@ const SingleStorage = ({ storage }: Props) => {
   };
 
   const onEditHandler = () => {
-    dispatch(editingStorageThunk(editStorageData));
-    ToastAndroid.show('Magazyn pomyslnie edytowany!', ToastAndroid.SHORT);
+    setStorageError(STORAGE_ERROR_INITIAL_VALUES);
+    const numberRegex = /^[0-9.]+$/;
+    let isError = false;
+    const errorData: StorageError = {
+      ...STORAGE_ERROR_INITIAL_VALUES,
+    };
+    if (ifStringIsInvalid(editStorageData.storageName)) {
+      isError = true;
+      errorData.storageNameError = 'Invalid storage name!';
+    }
+    if (ifStringIsInvalid(editStorageData.storageCapacity) || !numberRegex.test(editStorageData.storageCapacity)) {
+      isError = true;
+      errorData.storageCapacityError = 'Invalid storage capacity!';
+    }
+    if (editStorageData.productsIds.length === 0) {
+      isError = true;
+      errorData.productsIdsError = 'Please select at least one product!';
+    }
+    if (isError) {
+      setStorageError(errorData);
+      ToastAndroid.show('Invalid data!', ToastAndroid.SHORT);
+      return;
+    }
+    try {
+      dispatch(editingStorageThunk(editStorageData));
+      ToastAndroid.show('Magazyn pomyslnie edytowany!', ToastAndroid.SHORT);
+    } catch (e) {
+      ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
+    }
   };
 
   const onAddChangeHandler = (type: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -115,6 +149,7 @@ const SingleStorage = ({ storage }: Props) => {
         label="Nazwa magazynu"
         isBlackText
         defaultValue={storage.storageName}
+        errorText={storageError.storageNameError}
       />
       <InputComponent
         placeholder="Pojemność magazynu"
@@ -125,8 +160,10 @@ const SingleStorage = ({ storage }: Props) => {
         label="Storage capacity"
         isBlackText
         defaultValue={storage.storageCapacity}
+        errorText={storageError.storageCapacityError}
       />
       <SelectComponent products={products} onAddProducts={onAddProducts} />
+      {storageError.productsIdsError && <Text style={{ color: 'red' }}>{storageError.productsIdsError}</Text> }
     </View>
   );
 
