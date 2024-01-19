@@ -28,18 +28,18 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<String> addProduct(@RequestBody ProductDTORequest productDTORequest) {
         productService.addProduct(productDTORequest);
-        return ResponseEntity.ok("Dodano produkt!");
+        return ResponseEntity.ok("Product addedd successfully!");
     }
 
     @PutMapping
     public ResponseEntity<String> editProduct(@RequestBody EditProductDTORequest editProductDTORequest) {
         productService.editProduct(editProductDTORequest);
-        return ResponseEntity.ok("Edytowano produkt!");
+        return ResponseEntity.ok("Product edited successfully!");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable ("id") Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.ok("Usunięto produkt!");
+        return ResponseEntity.ok("Product deleted successfully!");
     }
 }

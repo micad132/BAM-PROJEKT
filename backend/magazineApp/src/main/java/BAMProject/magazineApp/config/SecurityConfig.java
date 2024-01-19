@@ -62,7 +62,7 @@ public class SecurityConfig {
                 .successHandler((e,d,f) -> {})
                 .failureHandler((request, response, exception) -> {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                    response.getWriter().write("Logowanie nieudane: Błędne dane logowania.");
+                    response.getWriter().write("Login failed: Invalid data.");
                 })
                 .loginPage("/login")
                 .permitAll();

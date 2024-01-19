@@ -26,7 +26,7 @@ public class ProductMapper {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = authentication.getName();
 
-        User loggedUser = userRepository.findUserModelByUsername(loggedInUsername).orElseThrow(() -> new UsernameNotFoundException("Nie ma usera"));
+        User loggedUser = userRepository.findUserModelByUsername(loggedInUsername).orElseThrow(() -> new UsernameNotFoundException("Invalid user"));
 
         return Product.builder()
                 .productName(productDTORequest.getProductName())
@@ -48,9 +48,9 @@ public class ProductMapper {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = authentication.getName();
 
-        User loggedUser = userRepository.findUserModelByUsername(loggedInUsername).orElseThrow(() -> new UsernameNotFoundException("Nie ma usera"));
+        User loggedUser = userRepository.findUserModelByUsername(loggedInUsername).orElseThrow(() -> new UsernameNotFoundException("Invalid user"));
 
-        Product product = productRepository.findById(editProductDTORequest.getId()).orElseThrow(() -> new NoSuchElementException("Nie ma"));
+        Product product = productRepository.findById(editProductDTORequest.getId()).orElseThrow(() -> new NoSuchElementException("No such product"));
 
         product.setProductName(editProductDTORequest.getProductName());
         product.setPrice(editProductDTORequest.getPrice());

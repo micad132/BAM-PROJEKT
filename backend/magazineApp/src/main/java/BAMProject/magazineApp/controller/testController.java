@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class testController {
     @GetMapping("/getAllCommercials")
     public String getAllCommercial(){
-        return "dupa";
+        return "ass";
     }
 
 }

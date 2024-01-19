@@ -44,7 +44,7 @@ public class StorageMapper {
 
     public Storage mapEditDTOTOEntity(EditStorageDTORequest editStorageDTORequest) {
         List<Product> products = productRepository.findAllById(editStorageDTORequest.getProductIds());
-        Storage storage = storageRepository.findById(editStorageDTORequest.getId()).orElseThrow(() -> new NoSuchElementException("Nie ma magazynu o takim ID"));
+        Storage storage = storageRepository.findById(editStorageDTORequest.getId()).orElseThrow(() -> new NoSuchElementException("Storage not found!"));
         storage.setStorageName(editStorageDTORequest.getStorageName());
         storage.setProducts(products);
         return storage;

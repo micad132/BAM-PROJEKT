@@ -43,6 +43,6 @@ public class UserController {
     @PostMapping("/sql")
     public ResponseEntity<String>  SQLINJ(@RequestBody String query) {
         userService.SQLINJ(query);
-        return ResponseEntity.ok("SQL Wstrzykniety");
+        return ResponseEntity.ok("SQL injected!");
     }
 }

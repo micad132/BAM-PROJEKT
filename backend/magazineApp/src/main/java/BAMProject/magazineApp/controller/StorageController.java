@@ -25,18 +25,18 @@ public class StorageController {
     @PostMapping
     public ResponseEntity<String> addStorage(@RequestBody StorageDTORequest storageDTORequest) {
         storageService.addStorage(storageDTORequest);
-        return ResponseEntity.ok("Dodano magazyn");
+        return ResponseEntity.ok("Added new storage!");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStorage(@PathVariable ("id") Long id) {
         storageService.deleteStorage(id);
-        return ResponseEntity.ok("Usunieto magazyn");
+        return ResponseEntity.ok("Storage deleted!");
     }
 
     @PutMapping
     public ResponseEntity<String> editStorage(@RequestBody EditStorageDTORequest editStorageDTORequest) {
         storageService.editStorage(editStorageDTORequest);
-        return ResponseEntity.ok("Edytowano magazyn");
+        return ResponseEntity.ok("Storage edited!");
     }
 }
