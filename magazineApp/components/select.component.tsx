@@ -27,8 +27,8 @@ const MultiSelectExample = ({ products, onAddProducts }: Props) => {
         uniqueKey="id"
         selectedItems={selectedItems}
         onSelectedItemsChange={onSelectedItemsChange}
-        selectText="Wybierz produkty"
-        searchInputPlaceholderText="Szukaj..."
+        selectText="Select products"
+        searchInputPlaceholderText="Search..."
         tagRemoveIconColor="#CCC"
         tagBorderColor="#CCC"
         tagTextColor="#CCC"
@@ -38,7 +38,7 @@ const MultiSelectExample = ({ products, onAddProducts }: Props) => {
         displayKey="name"
         searchInputStyle={{ color: '#CCC' }}
         submitButtonColor="#CCC"
-        submitButtonText="Wybierz"
+        submitButtonText="Select"
       />
       <View>
         <Text>Wybrane produkty:</Text>

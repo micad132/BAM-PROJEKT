@@ -20,26 +20,6 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { addingProductThunk, getProducts } from '../../store/reducers/productReducer';
 import { ifStringIsInvalid, sanitizeData } from '../../services/ValidationService';
 
-const MOCKED_PRODUCTS: Product[] = [
-  {
-    id: '5',
-    productName: 'Mleczko',
-    price: '4333',
-    weight: '233',
-  },
-  {
-    id: '6',
-    productName: 'Guwienko',
-    price: '18333',
-    weight: '1822',
-  },
-  {
-    id: '7',
-    productName: 'smacznego',
-    price: '933',
-    weight: '19922',
-  },
-];
 
 const ProductScreen = () => {
   const dispatch = useAppDispatch();
@@ -82,7 +62,7 @@ const ProductScreen = () => {
     }
     try {
       dispatch(addingProductThunk(newProductData));
-      ToastAndroid.show('Produkt pomyslnie dodany!', ToastAndroid.SHORT);
+      ToastAndroid.show('Product addedd successfully!', ToastAndroid.SHORT);
       setNewProductData(INITIAL_ADD_PRODUCT_VALUES);
     } catch (e: any) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
@@ -92,32 +72,32 @@ const ProductScreen = () => {
   const modalContent = (
     <View>
       <InputComponent
-        placeholder="Nazwa produktu"
+        placeholder="Product name"
         value={newProductData.productName}
         onChange={onAddChangeHandler('productName')}
         isPassword={false}
         inputId="newProductName"
-        label="Nazwa produktu"
+        label="Product name"
         isBlackText
         errorText={productErrors.productNameError}
       />
       <InputComponent
-        placeholder="Cena produktu"
+        placeholder="Product price"
         value={newProductData.price}
         onChange={onAddChangeHandler('price')}
         isPassword={false}
         inputId="newProductPrice"
-        label="Cena produktu"
+        label="Product price"
         isBlackText
         errorText={productErrors.productPriceError}
       />
       <InputComponent
-        placeholder="Waga produktu"
+        placeholder="Product weight"
         value={newProductData.weight}
         onChange={onAddChangeHandler('weight')}
         isPassword={false}
         inputId="newProductWeight"
-        label="Waga produktu"
+        label="Product weight"
         isBlackText
         errorText={productErrors.productWeightError}
       />
@@ -126,7 +106,7 @@ const ProductScreen = () => {
 
   return (
     <PageWrapperComponent>
-      <ModalComponent modalButtonText="Dodaj" modalTitle="Dodaj produkt" modalContent={modalContent} onSave={onSaveHandler} />
+      <ModalComponent modalButtonText="Add" modalTitle="Add product" modalContent={modalContent} onSave={onSaveHandler} />
       <ProductsListComponent productList={productList} />
     </PageWrapperComponent>
   );

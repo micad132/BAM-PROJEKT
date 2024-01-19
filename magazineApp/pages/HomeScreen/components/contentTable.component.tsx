@@ -32,11 +32,11 @@ interface Props {
 const ContentTable = ({ productCount, storageCount }: Props) => (
   <View style={styles.wrapper}>
     <View style={styles.wrapper.singleInfo}>
-      <Text>Ilość produktów w bazie</Text>
+      <Text>Products registered in database</Text>
       <Text style={styles.wrapper.singleInfo.numberInfo}>{productCount}</Text>
     </View>
     <View style={styles.wrapper.singleInfo}>
-      <Text>Ilość magazynów w bazie</Text>
+      <Text>Storages registered in database</Text>
       <Text style={styles.wrapper.singleInfo.numberInfo}>{storageCount}</Text>
     </View>
   </View>

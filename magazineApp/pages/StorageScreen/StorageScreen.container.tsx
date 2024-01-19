@@ -57,7 +57,7 @@ const StorageScreen = () => {
     };
     try {
       dispatch(addingStorageThunk(addData));
-      ToastAndroid.show('Magazyn pomyslnie dodany!', ToastAndroid.SHORT);
+      ToastAndroid.show('Storage created successfully!', ToastAndroid.SHORT);
       setStorageData(ADD_STORAGE_INITIAL_VALUES);
     } catch (e) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
@@ -86,22 +86,22 @@ const StorageScreen = () => {
   const modalContent = (
     <View>
       <InputComponent
-        placeholder="Nazwa magazynu"
+        placeholder="Storage name"
         value={storageData.storageName}
         onChange={onAddChangeHandler('storageName')}
         isPassword={false}
         inputId="newStorageName"
-        label="Nazwa magazynu"
+        label="Storage name"
         isBlackText
         errorText={storageError.storageNameError}
       />
       <InputComponent
-        placeholder="Pojemnosc magazynu"
+        placeholder="Storage capacity"
         value={storageData.storageCapacity}
         onChange={onAddChangeHandler('storageCapacity')}
         isPassword={false}
         inputId="newStorageCapacity"
-        label="Pojemnosc magazynu"
+        label="Storage capacity"
         isBlackText
         errorText={storageError.storageCapacityError}
       />
@@ -126,8 +126,8 @@ const StorageScreen = () => {
 
   return (
     <PageWrapperComponent>
-      <ModalComponent modalButtonText="Dodaj" modalTitle="Dodaj magazyn" modalContent={modalContent} onSave={onSaveHandler} />
-      <ModalComponent modalButtonText="XSS ATAK" modalTitle="Przyklad ataku XSS" modalContent={xssContent} onSave={onXSSHandler} />
+      <ModalComponent modalButtonText="Add" modalTitle="Add storage" modalContent={modalContent} onSave={onSaveHandler} />
+      <ModalComponent modalButtonText="XSS ATTACK" modalTitle="Example of XSS attack" modalContent={xssContent} onSave={onXSSHandler} />
       <StoragesListComponent storagesList={storagesList} />
     </PageWrapperComponent>
   );

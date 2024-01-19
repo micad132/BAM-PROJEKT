@@ -88,7 +88,7 @@ const SingleStorage = ({ storage }: Props) => {
 
   const onDeleteHandler = () => {
     dispatch(deletingStorageThunk(storage.id));
-    ToastAndroid.show('Magazyn pomyslnie usunięty!', ToastAndroid.SHORT);
+    ToastAndroid.show('Storage deleted successfully!', ToastAndroid.SHORT);
   };
 
   const onEditHandler = () => {
@@ -117,7 +117,7 @@ const SingleStorage = ({ storage }: Props) => {
     }
     try {
       dispatch(editingStorageThunk(editStorageData));
-      ToastAndroid.show('Magazyn pomyslnie edytowany!', ToastAndroid.SHORT);
+      ToastAndroid.show('Storage edited successfully!', ToastAndroid.SHORT);
     } catch (e) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
@@ -141,18 +141,18 @@ const SingleStorage = ({ storage }: Props) => {
   const editingStorageContent = (
     <View>
       <InputComponent
-        placeholder="Nazwa magazynu"
+        placeholder="Storage name"
         value={editStorageData.storageName}
         onChange={onAddChangeHandler('storageName')}
         isPassword={false}
         inputId="newStorageName"
-        label="Nazwa magazynu"
+        label="Storage name"
         isBlackText
         defaultValue={storage.storageName}
         errorText={storageError.storageNameError}
       />
       <InputComponent
-        placeholder="Pojemność magazynu"
+        placeholder="Storage capacity"
         value={editStorageData.storageCapacity}
         onChange={onAddChangeHandler('storageCapacity')}
         isPassword={false}
@@ -193,17 +193,17 @@ const SingleStorage = ({ storage }: Props) => {
         <View style={styles.storageWrapper.infoWrapper.buttons}>
           <ModalComponent
             buttonStyle={styles.storageWrapper.infoWrapper.buttons.button}
-            modalButtonText="EDYTUJ"
-            modalTitle="Edytuj magazyn"
+            modalButtonText="EDIT"
+            modalTitle="Edit storage"
             modalContent={editingStorageContent}
             onSave={onEditHandler}
           />
-          <Button onPress={onDeleteHandler} style={styles.storageWrapper.infoWrapper.buttons.button}>USUŃ</Button>
+          <Button onPress={onDeleteHandler} style={styles.storageWrapper.infoWrapper.buttons.button}>DELETE</Button>
         </View>
 
       </View>
       <View style={styles.storageWrapper.productsWrapper}>
-        <Text style={styles.storageWrapper.productsWrapper.text}>Produkty:</Text>
+        <Text style={styles.storageWrapper.productsWrapper.text}>Products:</Text>
         {mappedProducts}
       </View>
     </ScrollView>

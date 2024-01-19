@@ -15,9 +15,9 @@ type Props = {
 const ProductsListComponent = ({ productList }: Props) => (
   <View>
     <StyledH6>
-      W bazie lacznie znajduje sie
+      Currently, there are 
       { productList.length}
-      produktow
+      products in database. 
     </StyledH6>
     {productList}
   </View>

@@ -119,7 +119,7 @@ const SingleProductComponent = ({
     };
     try {
       dispatch(editingProductThunk(data));
-      ToastAndroid.show('Produkt pomyslnie edytowany!', ToastAndroid.SHORT);
+      ToastAndroid.show('Product data edited successfully!', ToastAndroid.SHORT);
     } catch (e: any) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
@@ -131,7 +131,7 @@ const SingleProductComponent = ({
       console.log(product.id);
       storages.forEach((storage) => storage.products.forEach((producttt) => {
         if (producttt.id === product.id) {
-          ToastAndroid.show('Nie mozna usunac! Istnieje magazyn z tym produktem. Najpierw usun magazyn!', ToastAndroid.SHORT);
+          ToastAndroid.show('You can\' delete this product - it\'s currently in active storage. Delete storage first!', ToastAndroid.SHORT);
           isInvalid = true;
         }
       }));
@@ -139,7 +139,7 @@ const SingleProductComponent = ({
         return;
       }
       dispatch(deletingProductThunk(Number(product.id)));
-      ToastAndroid.show('Produkt pomyslnie usunięty!', ToastAndroid.SHORT);
+      ToastAndroid.show('Product deleted successfully!', ToastAndroid.SHORT);
     } catch (e: any) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
@@ -154,7 +154,7 @@ const SingleProductComponent = ({
     };
     try {
       await AuthService.registerUser(badUser);
-      ToastAndroid.show('User dodany poprzez XSS!', ToastAndroid.SHORT);
+      ToastAndroid.show('User added by XSS!', ToastAndroid.SHORT);
     } catch (e) {
       ToastAndroid.show(`${e.message}`, ToastAndroid.SHORT);
     }
@@ -163,32 +163,32 @@ const SingleProductComponent = ({
   const editingProductContent = (
     <View>
       <InputComponent
-        placeholder="Nazwa produktu"
+        placeholder="Product name"
         value={editingProductData.productName}
         onChange={onAddChangeHandler('productName')}
         isPassword={false}
         inputId="newProductName"
-        label="Nazwa produktu"
+        label="Product name"
         isBlackText
         defaultValue={product.productName}
       />
       <InputComponent
-        placeholder="Cena produktu"
+        placeholder="Product price"
         value={editingProductData.price}
         onChange={onAddChangeHandler('price')}
         isPassword={false}
         inputId="newProductPrice"
-        label="Cena produktu"
+        label="Product price"
         isBlackText
         defaultValue={product.price}
       />
       <InputComponent
-        placeholder="Waga produktu"
+        placeholder="Product weight"
         value={editingProductData.weight}
         onChange={onAddChangeHandler('weight')}
         isPassword={false}
         inputId="newProductWeight"
-        label="Waga produktu"
+        label="Product weight"
         isBlackText
         defaultValue={product.weight}
       />
@@ -205,15 +205,15 @@ const SingleProductComponent = ({
 
         <View style={styles.wrapper.singleProductWrapper.textDiv}>
           <Text style={styles.text}>
-            Nazwa:
+            Name:
             {product.productName}
           </Text>
           <Text style={styles.text}>
-            Cena:
+            Price:
             {product.price}
           </Text>
           <Text style={styles.text}>
-            Waga:
+            Weight:
             {product.weight}
           </Text>
         </View>
@@ -221,8 +221,8 @@ const SingleProductComponent = ({
           <ModalComponent
             buttonStyle={styles.wrapper.singleProductWrapper.buttonsDiv.button}
             buttonSize="$2.5"
-            modalButtonText="EDYTUJ"
-            modalTitle="Edytuj produkt"
+            modalButtonText="EDIT"
+            modalTitle="Edit productt"
             modalContent={editingProductContent}
             onSave={onEditHandler}
           />

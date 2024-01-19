@@ -43,7 +43,7 @@ const HomePage = ({ navigation }: any) => {
 
   const properHomeContent = loggedUser.username ? (
     <>
-      <LogoutButton onPress={handleLogout}>Wyloguj się</LogoutButton>
+      <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
       <LoggedUserHeaderComponent
         userName={loggedUser.username}
       />
@@ -52,7 +52,7 @@ const HomePage = ({ navigation }: any) => {
         storageCount={storages.length}
       />
     </>
-  ) : (<PageWrapperComponent><Text>Nie jesteś zalogowany</Text></PageWrapperComponent>);
+  ) : (<PageWrapperComponent><Text>You are not logged in.</Text></PageWrapperComponent>);
 
   return (
     <PageWrapperComponent>

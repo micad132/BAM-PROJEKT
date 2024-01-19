@@ -85,7 +85,7 @@ const RegisterScreen = ({ navigation }: any) => {
         postalCode: registerData.postalCode,
       };
       const data = await AuthService.registerUser(dataToSend);
-      ToastAndroid.show('Pomyślnie zarejestrowano użytkownika!', ToastAndroid.SHORT);
+      ToastAndroid.show('User registration successful!', ToastAndroid.SHORT);
       setTimeout(() => navigation.navigate('Login'), 2000);
     } catch (e: any) {
       console.log(e);

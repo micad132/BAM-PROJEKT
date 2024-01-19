@@ -16,10 +16,10 @@ interface Props {
 const StoragesListComponent = ({ storagesList }: Props) => (
   <ScrollView>
     <StyledH6>
-      W bazie znajduje się
+      Currently, there are
       {storagesList.length}
       {' '}
-      magazynów
+      storages in database.
     </StyledH6>
     {storagesList}
   </ScrollView>

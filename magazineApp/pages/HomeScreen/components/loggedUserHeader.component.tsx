@@ -13,7 +13,7 @@ const StyledH6 = styled(H6, {
 
 const LoggedUserHeaderComponent = ({ userName }: Props) => (
   <StyledH6>
-    Jesteś zalogowany jako
+    You are logged in as: 
     {' '}
     {userName}
   </StyledH6>
