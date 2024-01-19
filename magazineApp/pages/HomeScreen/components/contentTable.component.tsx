@@ -2,9 +2,10 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '90%',
     marginTop: 10,
+    gap: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
     justifyContent: 'space-evenly',

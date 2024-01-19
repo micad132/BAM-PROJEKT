@@ -57,7 +57,6 @@ export const addingStorageThunk = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async (storageData: AddStorage) => {
     try {
-      console.log('DATA THUNK', storageData);
       await StoragesService.addStorage(storageData);
       const data = await StoragesService.getAllStorages();
       return data;

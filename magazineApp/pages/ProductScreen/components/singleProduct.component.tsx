@@ -90,7 +90,6 @@ const SingleProductComponent = ({
   };
 
   const onEditHandler = () => {
-    console.log(editingProductData);
     const numberRegex = /^[0-9.]+$/;
     let isError = false;
     const errorData = {
@@ -128,7 +127,6 @@ const SingleProductComponent = ({
   const onDeleteHandler = () => {
     let isInvalid = false;
     try {
-      console.log(product.id);
       storages.forEach((storage) => storage.products.forEach((producttt) => {
         if (producttt.id === product.id) {
           ToastAndroid.show('You can\' delete this product - it\'s currently in active storage. Delete storage first!', ToastAndroid.SHORT);

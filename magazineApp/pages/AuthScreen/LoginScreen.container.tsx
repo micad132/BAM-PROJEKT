@@ -88,7 +88,6 @@ const LoginScreen = ({ navigation }: any) => {
       }
 
       if (isError) {
-        console.log(errorData);
         setLoginErrors(errorData);
         ToastAndroid.show('Invalid data!', ToastAndroid.SHORT);
         return;
@@ -169,21 +168,6 @@ const LoginScreen = ({ navigation }: any) => {
         </Form.Trigger>
       </Form>
       <RegisterText onPress={() => navigation.navigate('Register')}>Dont have an account?</RegisterText>
-      {/* <Button onPress={async () => { */}
-      {/*  // eslint-disable-next-line no-eval */}
-      {/*  // eval(error); */}
-      {/*  const query = 'DELETE FROM user_table WHERE id = 11'; */}
-      {/*  console.log(error); */}
-      {/*  const data = await axios.post('http://10.0.2.2:8080/api/v1/user/sql', error, { */}
-      {/*    headers: { */}
-      {/*      'Content-Type': 'text/plain', */}
-      {/*    }, */}
-      {/*  }); */}
-      {/*  console.log('response', data); */}
-      {/* }} */}
-      {/* > */}
-      {/*  TEST */}
-      {/* </Button> */}
     </AuthFormWrapperComponent>
   );
 };
