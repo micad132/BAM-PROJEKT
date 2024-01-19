@@ -130,7 +130,7 @@ const RegisterScreen = ({ navigation }: any) => {
           placeholder="Type your city here..."
           onChange={handleOnChange('city')}
           value={registerData.city}
-          isPassword
+          isPassword={false}
           inputId="RegisterCity"
           label="City"
           isBlackText={false}
@@ -140,7 +140,7 @@ const RegisterScreen = ({ navigation }: any) => {
           placeholder="Type your postalcode here"
           onChange={handleOnChange('postalCode')}
           value={registerData.postalCode}
-          isPassword
+          isPassword={false}
           inputId="RegisterPostalCode"
           label="Postal Code"
           isBlackText={false}
