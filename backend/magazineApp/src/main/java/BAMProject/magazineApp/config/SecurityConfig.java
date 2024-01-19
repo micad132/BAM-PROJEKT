@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .frameOptions().disable()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/v1/user/sql").permitAll()
                 .antMatchers("/login")
                 .permitAll()
                 .anyRequest().permitAll()

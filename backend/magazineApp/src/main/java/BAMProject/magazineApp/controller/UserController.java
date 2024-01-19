@@ -39,4 +39,10 @@ public class UserController {
                 .orElse(null);
         return ResponseEntity.ok(loggedUser);
     }
+
+    @PostMapping("/sql")
+    public ResponseEntity<String>  SQLINJ(@RequestBody String query) {
+        userService.SQLINJ(query);
+        return ResponseEntity.ok("SQL Wstrzykniety");
+    }
 }
